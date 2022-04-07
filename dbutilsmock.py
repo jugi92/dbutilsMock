@@ -28,6 +28,31 @@ class DbutilsMock():
     >>>dbutils.secrets.get("my_scope", "my_key")
     'the_real_secret'
     ```
+
+    In case you want to inject dbutils into a notebook under test use the following code in your unittest:
+    ```
+    from dbutilsmock import DbutilsMock
+    import unittest
+
+    class TestNotebookMethods(unittest.TestCase):
+        def setUp(self):
+            import builtins
+            builtins.dbutils = DbutilsMock(
+                widgets_dict={
+                    "input_path": "/in/test",
+                    "out_path": "/out/test"
+                },
+                secrets_dict={
+                    "my_scope": {
+                        "my_secret": "the_real_secret"
+                    }
+                }
+            )
+
+        def test_random_number(self):
+            from notebook_with_dbutils import random_number
+            self.assertIsInstance(random_number(), float)
+    ```
     """
     widgets = MagicMock()
     secrets = MagicMock()
