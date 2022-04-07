@@ -1,6 +1,6 @@
 from random import random
 
-dbutils.widgets.get("input_path")
+path = dbutils.widgets.get("input_path")
 
 def random_number():
     r = random()

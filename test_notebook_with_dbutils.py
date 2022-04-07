@@ -6,13 +6,7 @@ class TestNotebookMethods(unittest.TestCase):
         import builtins
         builtins.dbutils = DbutilsMock(
             widgets_dict={
-                "input_path": "/in/test",
-                "out_path": "/out/test"
-            },
-            secrets_dict={
-                "my_scope": {
-                    "my_secret": "the_real_secret"
-                }
+                "input_path": "/in/test"
             }
         )
 

@@ -29,7 +29,20 @@ class DbutilsMock():
     'the_real_secret'
     ```
 
-    In case you want to inject dbutils into a notebook under test use the following code in your unittest:
+    In case you want to test the function `random_number` in a notebook like this:
+    ```
+    from random import random
+
+    path = dbutils.widgets.get("input_path")
+
+    def random_number():
+        r = random()
+        print(r)
+        return r
+    ``` 
+    
+    You can inject dbutils in the test for that notebook by using the following code:
+    
     ```
     from dbutilsmock import DbutilsMock
     import unittest
@@ -39,13 +52,7 @@ class DbutilsMock():
             import builtins
             builtins.dbutils = DbutilsMock(
                 widgets_dict={
-                    "input_path": "/in/test",
-                    "out_path": "/out/test"
-                },
-                secrets_dict={
-                    "my_scope": {
-                        "my_secret": "the_real_secret"
-                    }
+                    "input_path": "/in/test"
                 }
             )
 
@@ -53,6 +60,8 @@ class DbutilsMock():
             from notebook_with_dbutils import random_number
             self.assertIsInstance(random_number(), float)
     ```
+
+    The previous error `NameError: name 'dbutils' is not defined` will be solved and you can test your function.
     """
     widgets = MagicMock()
     secrets = MagicMock()
@@ -100,4 +109,3 @@ if __name__ == "__main__":
     dbutils.secrets.get("my_scope", "my_key")
 
     dbutils = DbutilsMock()
-
