@@ -4,7 +4,7 @@ Simple Mock for dbutils functions that can be used whenever dbutils is not avail
 Use in the following way:
 Before your test initiate the dbutils Mock:
 ```
-from dbutilsmock import DbutilsMock
+from dbutilsmock.dbutilsmock import DbutilsMock
 dbutils = DbutilsMock(
     widgets_dict={
         "input_path": "/test/asd",
@@ -41,7 +41,7 @@ def random_number():
 You can inject dbutils in the test for that notebook by using the following code:
 
 ```
-from dbutilsmock import DbutilsMock
+from dbutilsmock.dbutilsmock import DbutilsMock
 import unittest
 
 class TestNotebookMethods(unittest.TestCase):
@@ -65,4 +65,3 @@ The previous error `NameError: name 'dbutils' is not defined` will be solved and
 ```
 pip install git+https://github.com/jugi92/dbutilsMock
 ```
-   
