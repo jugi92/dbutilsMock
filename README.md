@@ -59,4 +59,10 @@ class TestNotebookMethods(unittest.TestCase):
 ```
 
 The previous error `NameError: name 'dbutils' is not defined` will be solved and you can test your function.
+
+## Installation
+
+```
+pip install git+https://github.com/jugi92/dbutilsMock
+```
    
