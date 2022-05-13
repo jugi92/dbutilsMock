@@ -1,13 +1,14 @@
 from typing import Dict
 from unittest.mock import MagicMock
 
+
 class DbutilsMock():
     """Simple Mock for dbutils functions that can be used whenever dbutils is not available, e.g. for unittesting databricks notebooks locally
     
     Use in the following way:
     Before your test initiate the dbutils Mock:
     ```
-    from dbutilsmock import DbutilsMock
+    from dbutilsmock.dbutilsmock import DbutilsMock
     dbutils = DbutilsMock(
         widgets_dict={
             "input_path": "/test/asd",
@@ -39,12 +40,12 @@ class DbutilsMock():
         r = random()
         print(r)
         return r
-    ``` 
-    
-    You can inject dbutils in the test for that notebook by using the following code:
-    
     ```
-    from dbutilsmock import DbutilsMock
+
+    You can inject dbutils in the test for that notebook by using the following code:
+
+    ```
+    from dbutilsmock.dbutilsmock import DbutilsMock
     import unittest
 
     class TestNotebookMethods(unittest.TestCase):
@@ -57,7 +58,7 @@ class DbutilsMock():
             )
 
         def test_random_number(self):
-            from notebook_with_dbutils import random_number
+            from tests.notebook_with_dbutils import random_number
             self.assertIsInstance(random_number(), float)
     ```
 
@@ -66,21 +67,21 @@ class DbutilsMock():
     widgets = MagicMock()
     secrets = MagicMock()
 
-    def __init__(self, widgets_dict: Dict=None, secrets_dict: Dict=None):
+    def __init__(self, widgets_dict: Dict = None, secrets_dict: Dict = None):
         self.widgets.text = MagicMock(return_value=None)
-        
+
         if widgets_dict:
             self.widgets._widgets_dict = widgets_dict
             self.widgets.get = self._dbutils_widgets_get
-            
+
         if secrets_dict:
             self.secrets._secrets_dict = secrets_dict
             self.secrets.get = self._dbutils_secrets_get
-    
+
     def _dbutils_widgets_get(self, text):
         if self.widgets._widgets_dict:
             return self.widgets._widgets_dict[text]
-        else: 
+        else:
             return text
 
     def _dbutils_secrets_get(self, scope, key):

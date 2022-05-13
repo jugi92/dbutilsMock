@@ -1,5 +1,6 @@
-from dbutilsmock import DbutilsMock
+from dbutilsmock.dbutilsmock import DbutilsMock
 import unittest
+
 
 class TestNotebookMethods(unittest.TestCase):
     def setUp(self):
@@ -11,8 +12,9 @@ class TestNotebookMethods(unittest.TestCase):
         )
 
     def test_random_number(self):
-        from notebook_with_dbutils import random_number
+        from tests.notebook_with_dbutils import random_number
         self.assertIsInstance(random_number(), float)
+
 
 if __name__ == '__main__':
     unittest.main()
